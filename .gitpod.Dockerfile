@@ -63,7 +63,7 @@ RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import - \
     && bash -lc " \
         rvm requirements \
         && rvm install 2.7.2 \
-        && rvm use 2.7.2 --default \
+        && rvm use 2.7.2 --default --create\
         && rvm rubygems current \
         && gem install bundler --no-document \
         && gem install solargraph --no-document" \
@@ -72,8 +72,7 @@ RUN echo "rvm_gems_path=/home/gitpod/.rvm" > ~/.rvmrc
 
 USER gitpod
 # AppDev stuff
-RUN /bin/bash -l -c "gem install rufo"
-RUN /bin/bash -l -c "gem install activesupport"
+RUN /bin/bash -l -c "gem install rufo activesupport"
 
 # Install Node and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash - \
