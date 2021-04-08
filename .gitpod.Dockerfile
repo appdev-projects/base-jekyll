@@ -63,7 +63,7 @@ RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import - \
     && bash -lc " \
         rvm requirements \
         && rvm install 2.7.2 \
-        && rvm use 2.7.2 --default --create\
+        && rvm use 2.7.2 --default\
         && rvm rubygems current \
         && gem install bundler --no-document \
         && gem install solargraph --no-document" \
@@ -93,6 +93,7 @@ COPY Gemfile.lock /base-rails/Gemfile.lock
 # For some reason, the copied files are owned by root so bundle can not succeed
 RUN /bin/bash -l -c "sudo chown -R $(whoami):$(whoami) Gemfile Gemfile.lock"
 RUN /bin/bash -l -c "gem install bundler:2.2.3"
+RUN /bin/bash -l -c "rvm use 2.7.2 --create"
 RUN /bin/bash -l -c "bundle install"
 
 # Install heroku-cli
