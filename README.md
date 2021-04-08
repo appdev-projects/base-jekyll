@@ -1,13 +1,5 @@
-# Base Ruby
+# Base Jekyll
 
-This is an empty project for you to create and run Ruby files.
+This repository is intended for you to use as you follow along with [Jekyll's Step by Step Tutorial](https://jekyllrb.com/docs/step-by-step/01-setup/). It's essentially an empty workspace, but it has a few gems pre-installed to save you time:
 
-Run your Ruby file by typing `ruby ` and then the name of the file you want to run in the Terminal.
-
-Say we create a file called `hello.rb` and want to run it, we can write the command:
-
-```bash
-ruby hello.rb
-```
-
-To re-run this command, you can use the UP and DOWN arrow keys to look at the history of all commands you've run in a particular Terminal.
+ - 
