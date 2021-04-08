@@ -1,4 +1,17 @@
 FROM jelaniwoods/appdev2021-base-ruby
+USER gitpod
+RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import - \
+    && curl -sSL https://rvm.io/pkuczynski.asc | gpg --import - \
+    && curl -fsSL https://get.rvm.io | bash -s stable \
+    && bash -lc " \
+        rvm requirements \
+        && rvm install 2.7.2 \
+        && rvm use 2.7.2 --default \
+        && rvm rubygems current \
+        && gem install bundler --no-document \
+        && gem install solargraph --no-document"
+
+USER gitpod
 # AppDev stuff
 RUN /bin/bash -l -c "gem install rufo activesupport"
 # Install Node and npm
@@ -24,4 +37,3 @@ RUN /bin/bash -l -c "curl https://cli-assets.heroku.com/install.sh | sh"
 
 # Hack to pre-install bundled gems
 RUN echo "rvm use 2.7.2" >> ~/.bashrc
-RUN echo "rvm_silence_path_mismatch_check_flag=1" >> ~/.rvmrc
