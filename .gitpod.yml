@@ -1,5 +1,7 @@
 image:
   file: .gitpod.Dockerfile
+tasks:
+  init: bundle install
 ports:
   - port: 3000
     onOpen: open-preview

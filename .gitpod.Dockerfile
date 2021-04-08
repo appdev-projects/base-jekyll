@@ -93,27 +93,11 @@ COPY Gemfile.lock /base-rails/Gemfile.lock
 # For some reason, the copied files are owned by root so bundle can not succeed
 RUN /bin/bash -l -c "sudo chown -R $(whoami):$(whoami) Gemfile Gemfile.lock"
 RUN /bin/bash -l -c "gem install bundler:2.2.3"
-RUN /bin/bash -l -c "rvm use 2.7.2 --create"
 RUN /bin/bash -l -c "bundle install"
 
 # Install heroku-cli
 RUN /bin/bash -l -c "curl https://cli-assets.heroku.com/install.sh | sh"
 
-# Alias 'git' to 'g'
-RUN echo 'export PATH="$PATH:$GITPOD_REPO_ROOT/bin"' >> ~/.bashrc
-RUN echo " # No arguments: 'git status'\n\
-# With arguments: acts like 'git'\n\
-g() {\n\
-  if [[ \$# > 0 ]]; then\n\
-    git \$@\n\
-  else\n\
-    git status\n\
-  fi\n\
-}\n\
-# Complete g like git\n\
-source /usr/share/bash-completion/completions/git\n\
-__git_complete g __git_main" >> ~/.bash_aliases
-
 # Hack to pre-install bundled gems
-RUN echo "rvm use 2.7.2" >> ~/.bashrc
-RUN echo "rvm_silence_path_mismatch_check_flag=1" >> ~/.rvmrc
+# RUN echo "rvm use 2.7.2" >> ~/.bashrc
+# RUN echo "rvm_silence_path_mismatch_check_flag=1" >> ~/.rvmrc
