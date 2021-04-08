@@ -64,6 +64,7 @@ RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import - \
         && gem install solargraph --no-document" \
     && echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*' >> /home/gitpod/.bashrc.d/70-ruby
 RUN echo "rvm_gems_path=/home/gitpod/.rvm" > ~/.rvmrc
+RUN echo "rvm_gemset_create_on_use_flag=1" >> ~/.rvmrc
 
 USER gitpod
 # AppDev stuff
