@@ -1,6 +1,4 @@
-image:
-  file: .gitpod.Dockerfile
-
+image: jelaniwoods/appdev2021-base-jekyll-test
 ports:
   - port: 3000
     onOpen: open-preview

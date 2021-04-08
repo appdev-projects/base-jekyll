@@ -10,3 +10,5 @@ gem "jekyll-sitemap"
 gem "jekyll-seo-tag"
 gem "rouge"
 gem "webrick"
+
+gem 'web_git', github: 'firstdraft/web_git', branch: 'spring2020'
