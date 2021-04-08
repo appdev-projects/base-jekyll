@@ -73,6 +73,7 @@ RUN echo "rvm_gems_path=/home/gitpod/.rvm" > ~/.rvmrc
 USER gitpod
 # AppDev stuff
 RUN /bin/bash -l -c "gem install rufo"
+RUN /bin/bash -l -c "gem install activesupport"
 
 # Install Node and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash - \
@@ -113,7 +114,6 @@ g() {\n\
 source /usr/share/bash-completion/completions/git\n\
 __git_complete g __git_main" >> ~/.bash_aliases
 
-RUN /bin/bash -l -c "gem install activesupport"
 # Hack to pre-install bundled gems
 RUN echo "rvm use 2.7.2" >> ~/.bashrc
 RUN echo "rvm_silence_path_mismatch_check_flag=1" >> ~/.rvmrc
