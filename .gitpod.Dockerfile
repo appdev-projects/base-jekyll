@@ -1,17 +1,12 @@
 FROM buildpack-deps:focal
 
-COPY install-packages /usr/bin
-
 ### base ###
-ARG DEBIAN_FRONTEND=noninteractive
-
 RUN yes | unminimize \
-    && install-packages \
+    && apt-get install -yq \
         zip \
         unzip \
         bash-completion \
         build-essential \
-        ninja-build \
         htop \
         jq \
         less \
@@ -24,16 +19,16 @@ RUN yes | unminimize \
         vim \
         multitail \
         lsof \
-        ssl-cert \
-        fish \
-        zsh \
-    && locale-gen en_US.UTF-8
+    && locale-gen en_US.UTF-8 \
+    && mkdir /var/lib/apt/dazzle-marks \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/*
 
 ENV LANG=en_US.UTF-8
 
 ### Git ###
 RUN add-apt-repository -y ppa:git-core/ppa \
-    && install-packages git
+    && apt-get install -yq git \
+    && rm -rf /var/lib/apt/lists/*
 
 ### Gitpod user ###
 # '-l': see https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
@@ -63,7 +58,7 @@ RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import - \
     && bash -lc " \
         rvm requirements \
         && rvm install 2.7.2 \
-        && rvm use 2.7.2 --default\
+        && rvm use 2.7.2 --default \
         && rvm rubygems current \
         && gem install bundler --no-document \
         && gem install solargraph --no-document" \
@@ -73,7 +68,6 @@ RUN echo "rvm_gems_path=/home/gitpod/.rvm" > ~/.rvmrc
 USER gitpod
 # AppDev stuff
 RUN /bin/bash -l -c "gem install rufo activesupport"
-
 # Install Node and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash - \
     && sudo apt-get install -y nodejs
@@ -86,12 +80,9 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
 # Install fuser
 RUN sudo apt install -y libpq-dev psmisc lsof
 
-# Install gems
-WORKDIR /base-rails
-COPY Gemfile /base-rails/Gemfile
-COPY Gemfile.lock /base-rails/Gemfile.lock
-# For some reason, the copied files are owned by root so bundle can not succeed
-RUN /bin/bash -l -c "sudo chown -R $(whoami):$(whoami) Gemfile Gemfile.lock"
+WORKDIR /base-ruby
+COPY Gemfile /base-ruby/Gemfile
+COPY Gemfile.lock /base-ruby/Gemfile.lock
 RUN /bin/bash -l -c "gem install bundler:2.2.3"
 RUN /bin/bash -l -c "bundle install"
 
@@ -99,5 +90,5 @@ RUN /bin/bash -l -c "bundle install"
 RUN /bin/bash -l -c "curl https://cli-assets.heroku.com/install.sh | sh"
 
 # Hack to pre-install bundled gems
-# RUN echo "rvm use 2.7.2" >> ~/.bashrc
-# RUN echo "rvm_silence_path_mismatch_check_flag=1" >> ~/.rvmrc
+RUN echo "rvm use 2.7.2" >> ~/.bashrc
+RUN echo "rvm_silence_path_mismatch_check_flag=1" >> ~/.rvmrc
