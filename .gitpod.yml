@@ -1,4 +1,4 @@
-image: jelaniwoods/appdev2021-base-jekyll-test:working
+image: jelaniwoods/appdev2021-base-jekyll
 tasks:
   - init: bundle install
 ports:
