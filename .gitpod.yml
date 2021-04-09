@@ -1,5 +1,4 @@
-image:
-  file: .gitpod.Dockerfile
+image: jelaniwoods/appdev2021-base-jekyll-test:working
 tasks:
   - init: bundle install
 ports:
