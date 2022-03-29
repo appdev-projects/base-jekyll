@@ -1,4 +1,4 @@
-image: jelaniwoods/appdev2022-base-jekyll-test
+image: jelaniwoods/appdev2022-base-jekyll-k
 
 ports:
   - port: 3000
