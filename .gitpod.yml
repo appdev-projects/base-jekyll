@@ -3,6 +3,8 @@ image: jelaniwoods/appdev2022-base-jekyll
 ports:
   - port: 3000
     onOpen: open-preview
+  - port: 4000
+    onOpen: open-preview
   - port: 9500-9999
     onOpen: ignore
 
