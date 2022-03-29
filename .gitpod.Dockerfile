@@ -57,7 +57,8 @@ RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import - \
     && curl -fsSL https://get.rvm.io | bash -s stable \
     && bash -lc " \
         rvm requirements \
-        && rvm use 3.0.0 --install --default --create \
+        && rvm install 3.0.0 \
+        && rvm use 3.0.0 --default --create \
         && rvm rubygems current \
         && gem install bundler --no-document \
         && gem install solargraph --no-document" \
