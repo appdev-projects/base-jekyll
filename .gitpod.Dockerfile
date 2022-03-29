@@ -132,3 +132,4 @@ USER gitpod
 # Add bin/ to PATH
 RUN echo 'export PATH="$PATH:$GITPOD_REPO_ROOT/bin"' >> ~/.bashrc
 
+RUN /bin/bash -l -c "rvm use 3.0.0 --default --create"
